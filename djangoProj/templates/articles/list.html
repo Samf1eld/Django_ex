@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Last Statements{% endblock %}
+
+{% block content %}
+
+    {% if latest_articles_list %}
+
+        {% for a in latest_articles_list %}
+            <a href="{% url 'articles:detail' a.id %}">{{ a.a_title }}</a><br>
+        {% endfor %}
+
+	{% else %}
+        No relevant statements :(
+    {% endif %}
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <form action="{% url 'articles:new_article' %}" method="POST">
+
+        {% csrf_token %}
+        <button type="submit">Create article</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}{{question.q_name}}{% endblock %}
+
+{% block content %}
+
+    <h2>Ask new question!</h2>
+    <p>{{ curtime }}</p><br><br>
+
+    <form action="{% url 'openai:new_question_ask' %}" method="POST">
+
+        {% csrf_token %}
+
+        <input type="text" required placeholder="Question Name" name="title"><br>
+        <textarea name="content" required="" placeholder="Question content" cols="100" rows="10"></textarea><br>
+        <button type="submit">Ask!</button>
+    </form>
+
+{% endblock %}

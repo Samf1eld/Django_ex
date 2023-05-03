@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}{{Question.q_name}}{% endblock %}
+
+{% block content %}
+
+    <h2>{{ Question.q_name }}</h2>
+    <p>{{ Question.q_request }}</p>
+    <p>{{ Question.q_response }}</p>
+    <em>{{ Question.q_date_req }}</em><br>
+    <em>{{ Question.q_date_res }}</em><br>
+    {% if Question.was_asked_recently %}
+        <p style="color:red;">It is a new question!</p>
+    {% endif %}
+    <hr>
+    <form action="{% url 'openai:back2main'  Question.id %}" method="POST">
+
+        {% csrf_token %}
+
+        <button type="submit">Back to main</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}{{article.a_title}}{% endblock %}
+
+{% block content %}
+
+    <h2>{{ article.a_title }}</h2>
+    <p>{{ article.a_content }}</p>
+    <em>{{ article.a_pub_dt }}</em><br>
+    {% if article.was_pb_recently %}
+        <p style="color:red;">It is a new statement!</p>
+    {% endif %}
+    <hr>
+
+    {% if latest_comments_list %}
+        {% for c in latest_comments_list %}
+            <p>
+                <strong>{{ c.c_au_name }}</strong>
+                <p>{{ c.c_content }}</p>
+            </p>
+        {% endfor %}
+    {% else %}
+    Comments are not found :(
+        Be The First!
+    {% endif %}
+
+    <hr>
+
+    <form action="{% url 'articles:leave_comment' article.id %}" method="POST">
+
+        {% csrf_token %}
+
+        <input type="text" required placeholder="Your name" name="name"><br>
+        <textarea name="text" required="" placeholder="Commentary text" cols="30" rows="10"></textarea><br>
+        <button type="submit">Leave comment</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Last Questions{% endblock %}
+
+{% block content %}
+
+    {% if latest_questions_list %}
+
+        {% for q in latest_questions_list %}
+            <a href="{% url 'openai:detail' q.id %}">{{ q.q_name }}</a><br>
+        {% endfor %}
+
+	{% else %}
+        No relevant questions :(
+    {% endif %}
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <form action="{% url 'openai:new_question' %}" method="POST">
+
+        {% csrf_token %}
+        <button type="submit">Ask question</button>
+    </form>
+{% endblock %}
